@@ -22,6 +22,8 @@ pytest-cov = "^6.1.1"
 taskipy = "^1.14.1"
 ruff = "^0.11.9"
 httpx = "^0.28.1"
+pytest-html = "^4.1.1"
+py = "^1.11.0"
 
 [tool.ruff]
 line-length = 79
@@ -45,5 +47,5 @@ pre_format = 'ruff check --fix'
 format = 'ruff format'
 run = 'fastapi dev fast_zero/app.py'
 pre_test = 'task lint'
-test = 'pytest -s -x --cov=fast_zero -vv'
+test = 'pytest -s -x --cov=fast_zero -vv -v --tb=short > reports/report.txt --html=reports/report.html --self-contained-html --alluredir=allure-results'
 post_test = 'coverage html'

@@ -55,6 +55,9 @@ coverage.xml
 .pytest_cache/
 cover/
 
+allure-results
+reports
+
 # Translations
 *.mo
 *.pot
@@ -177,4 +180,23 @@ pyrightconfig.json
 
 # Generated using ignr.py - github.com/Antrikshy/ignr.py
 
-[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K
+
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
