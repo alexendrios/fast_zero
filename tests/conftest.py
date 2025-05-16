@@ -3,7 +3,6 @@ from datetime import datetime
 
 import pytest
 from fastapi.testclient import TestClient
-from markupsafe import Markup
 from sqlalchemy import create_engine, event
 from sqlalchemy.orm import Session
 from sqlalchemy.pool import StaticPool
@@ -67,7 +66,7 @@ def user(session):
     user = User(
         username='Teste',
         email='teste@test.com',
-        password=get_password_hash('testtest'),
+        password=get_password_hash(password),
     )
     session.add(user)
     session.commit()
@@ -81,13 +80,12 @@ def user(session):
 @pytest.fixture
 def token(client, user):
     response = client.post(
-        '/token',
+        '/auth/token',
         data={'username': user.email, 'password': user.clean_password},
     )
     return response.json()['access_token']
 
 
-# Relatório HTML do Pytest (se estiver usando pytest-html)
 @pytest.hookimpl(tryfirst=True)
 def pytest_html_report_title(report):
     report.title = 'Relatório de Testes Unitários'
@@ -95,7 +93,21 @@ def pytest_html_report_title(report):
 
 @pytest.hookimpl(optionalhook=True)
 def pytest_html_results_summary(prefix, summary, postfix):
-    ambiente = Markup('<p><strong>Ambiente:</strong> Desenvolvimento</p>')
-    executor = Markup('<p><strong>Executor:</strong> Alexandre P. Santos</p>')
-    prefix.extend([ambiente])
-    prefix.extend([executor])
+    artigo = (
+        '<h2>Testes Responsáveis pela cobertura de código da Aplicação</h2>'
+    )
+
+    ambiente = '<p><strong>Ambiente:</strong> Desenvolvimento</p>'
+    desenvolvedor = '<p><strong>Desenvolvedor:</strong> Alexandre Santos</p>'
+    projeto = '<p><strong>Projeto:</strong> Api - aprendizado</p>'
+    data_hora = (
+        f'<p><strong>Executado em:</strong> '
+        f'{datetime.now().strftime("%d-%b-%Y %H:%M:%S")}</p>'
+    )
+
+    # Adiciona no prefix para aparecer logo após o summary
+    prefix.append(artigo)
+    prefix.append(ambiente)
+    prefix.append(desenvolvedor)
+    prefix.append(projeto)
+    prefix.append(data_hora)
