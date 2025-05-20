@@ -63,7 +63,8 @@ pre_format = 'ruff check --fix'
 format = 'ruff format'
 run = 'fastapi dev fast_zero/app.py'
 pre_test = 'task lint'
-test = 'pytest -s -x --cov=fast_zero -vv -v --tb=short > reports/report.txt --html=reports/report.html --self-contained-html --alluredir=allure-results'
+test = 'pytest -s -x --cov=fast_zero -vv --html=reports/report.html --self-contained-html --alluredir=allure-results'
+test_ral_txt = 'pytest -s -x --cov=fast_zero -vv > reports/report.txt --html=reports/report.html --self-contained-html --alluredir=allure-results'
 post_test = 'coverage html'
 
 [build-system]
