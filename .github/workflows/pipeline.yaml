@@ -15,16 +15,25 @@ jobs:
       - name: Copia os arquivos do repositório
         uses: actions/checkout@v3
 
-      - name: Instalar o python
+      - name: Instalar o Python
         uses: actions/setup-python@v4
         with:
           python-version: '3.13'
 
-      - name: Instalar o poetry
+      - name: Instalar o Poetry
         run: pipx install poetry
 
       - name: Instalar dependências
         run: poetry install
 
-      - name: Executar testes
-        run: poetry run task test
+      - name: Executar testes com relatório HTML
+        run: |
+          poetry run pytest -s -x --cov=fast_zero -vv \
+            --html=reports/report.html \
+            --self-contained-html
+
+      - name: Upload do relatório de testes HTML
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-report
+          path: reports/report.html
